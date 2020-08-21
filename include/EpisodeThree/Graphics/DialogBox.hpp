@@ -3,13 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
-// TODO (Not) Very simple, not viable
+// TODO Improvements probably
 class DialogBox : public sf::Drawable, public sf::Transformable
 {
 public:
 
-   DialogBox();
-   explicit DialogBox(std::string const& dialogID, size_t charSize = 24, float charsPerSecond = 0.f, sf::Time skipCooldown = sf::Time::Zero);
+   explicit DialogBox(std::string const& dialogID = std::string(), size_t charSize = 24, float charsPerSecond = 0.f, sf::Time skipCooldown = sf::Time::Zero);
 
    void update(sf::Time dt);
    bool skip();

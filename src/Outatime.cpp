@@ -7,11 +7,11 @@ Outatime::Outatime()
 {
    // Move window to the center of the screen
    #if defined(_DEBUG)
-      m_window.setPosition({2560 - (WINDOW_WIDTH / 2), 540 - (WINDOW_HEIGHT / 2)}); // I have 2 monitors on a X server and SFML doesn't handle multiple monitors
+      // I have 2 monitors on a X server and SFML doesn't handle multiple monitors
+      m_window.setPosition({2560 - (WINDOW_WIDTH / 2), 540 - (WINDOW_HEIGHT / 2)})
    #else
-      sf::Vector2u winSize = m_window.getSize();
-      sf::Vector2u desktopSize = {sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height};
-      m_window.setPosition({static_cast<int>(desktopSize.x - winSize.x) / 2, static_cast<int>(desktopSize.y - winSize.y) / 2});
+      sf::Vector2i desktopSize = {static_cast<int>(sf::VideoMode::getDesktopMode().width), static_cast<int>(sf::VideoMode::getDesktopMode().height)};
+      m_window.setPosition({desktopSize.x - WINDOW_WIDTH) / 2, (desktopSize.y - WINDOW_HEIGHT) / 2});
    #endif
 
    m_window.setFramerateLimit(60);
@@ -34,9 +34,11 @@ void Outatime::mainGameLoop()
       {
          if (event.type == sf::Event::Closed)
             stop();
-         if (event.type == sf::Event::KeyPressed)
-            if (event.key.code == sf::Keyboard::Escape)
-               stop();
+         #if defined(_DEBUG)
+            if (event.type == sf::Event::KeyPressed)
+               if (event.key.code == sf::Keyboard::Escape)
+                  stop();
+         #endif
 
          state->onEvent(event);
       }
@@ -44,14 +46,16 @@ void Outatime::mainGameLoop()
       state->update(deltaTime);
 
       m_window.clear();
+      
       state->render(m_renderMaster);
       m_renderMaster.render();
+      
       m_window.display();
    }
 }
 
 void Outatime::popState()
-{
+
    if (++m_shouldPop >= m_states.size())
       m_shouldPop = m_states.size() ? m_states.size() - 1 : 0;
 }

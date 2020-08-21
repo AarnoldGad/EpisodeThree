@@ -15,8 +15,8 @@ public:
    DialogStore(DialogStore const&) = delete;
    DialogStore& operator=(DialogStore const&) = delete;
 
-   static std::string const& getLine(std::string const& identifier, size_t index);
-   static size_t getLineCount(std::string const& identifier);
+   static std::string const& getLine(std::string const& dialogID, size_t index);
+   static size_t getLineCount(std::string const& dialogID);
 
 private:
 

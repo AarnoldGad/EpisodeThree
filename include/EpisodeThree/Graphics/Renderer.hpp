@@ -11,6 +11,7 @@ public:
 
    Renderer();
 
+   // TODO Improve transition usage
    void triggerFade(Transition::FadeWay way, sf::Time duration);
    Transition const& getFade() const;
 

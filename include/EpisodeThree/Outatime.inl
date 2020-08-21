@@ -1,13 +1,22 @@
-template<typename S, typename... Args>
+template<typename StateType, typename... Args>
 void Outatime::run(Args&&... args)
 {
    m_running = true;
-   pushState<S>(std::forward<Args>(args)...);
+   pushState<StateType>(std::forward<Args>(args)...);
    mainGameLoop();
+   
+   m_states.clear();
 }
 
-template<typename S, typename... Args>
+template<typename StateType, typename... Args>
 void Outatime::pushState(Args&&... args)
 {
-   m_states.emplace(new S(*this, std::forward<Args>(args)...));
+   m_states.emplace(new StateType(*this, std::forward<Args>(args)...));
+}
+
+template<typename StateType, typename... Args>
+void Outatime::setState(Args&&... args)
+{
+   pushState<StateType>(std::forward<Args>(args)...);
+   popState();
 }

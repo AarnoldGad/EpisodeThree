@@ -8,7 +8,7 @@
 #include <EpisodeThree/Outatime.hpp>
 #include <EpisodeThree/Core/ResourceHolder.hpp>
 
-// TODO Want ability to add/remove holders at runtime dynamicly in a ideal world
+// TODO Want ability to add/remove holders at runtime dynamicly in an ideal world
 class ResourcesManager : public Singleton<ResourcesManager>,
                          public ResourceHolder<sf::Shader>,
                          public ResourceHolder<sf::Texture>,
@@ -20,10 +20,10 @@ class ResourcesManager : public Singleton<ResourcesManager>,
 public:
 
    // TODO Working pretty well but have to fulfil every arguments even defaulted ones
-   template<typename Resource, typename Func, typename... Args>
-   Resource& load(std::string const& identifier, Func loadFunc, Args&&... args)
+   template<typename ResourceType, typename Func, typename... Args>
+   ResourceType& load(std::string const& identifier, Func loadFunc, Args&&... args)
    {
-      Resource& resource = ResourceHolder<Resource>::add(identifier);
+      ResourceType& resource = ResourceHolder<ResourceType>::add(identifier);
 
       if (!std::invoke(loadFunc, resource, std::forward<Args>(args)...))
       {
@@ -35,19 +35,19 @@ public:
    }
 
    // Because we will mostly want to load from file
-   // TODO Improve template deduction (of overloaded methods)
-   template<typename Resource, typename... Args>
-   Resource& loadFromFile(std::string const& identifier, Args&&... args)
+   // TODO Improve template deduction (of overloaded "loadFrom..." methods)
+   template<typename ResourceType, typename... Args>
+   ResourceType& loadFromFile(std::string const& identifier, Args&&... args)
    {
-      return load<Resource>(identifier, &Resource::loadFromFile, std::forward<Args>(args)...);
+      return load<ResourceType>(identifier, &ResourceType::loadFromFile, std::forward<Args>(args)...);
    }
 
-   template<typename Resource>
+   template<typename ResourceType>
    bool isLoaded(std::string const& identifier) const
    {
       try
       {
-         return ResourceHolder<Resource>::m_resources.at(identifier);
+         return ResourceHolder<ResourceType>::m_resources.at(identifier);
       }
       catch (std::out_of_range& e)
       {
@@ -55,29 +55,29 @@ public:
       }
    }
 
-   template<typename Resource>
-   Resource& get(std::string const& identifier) const
+   template<typename ResourceType>
+   ResourceType& get(std::string const& identifier) const
    {
-      return ResourceHolder<Resource>::get(identifier);
+      return ResourceHolder<ResourceType>::get(identifier);
    }
 
-   template<typename Resource>
+   template<typename ResourceType>
    void remove(std::string const& identifier)
    {
-      ResourceHolder<Resource>::remove(identifier);
+      ResourceHolder<ResourceType>::remove(identifier);
    }
 
-   template<typename Resource>
+   template<typename ResourceType>
    void clear()
    {
-      ResourceHolder<Resource>::clear();
+      ResourceHolder<ResourceType>::clear();
    }
 
 private:
 
    void update(sf::Time dt)
    {
-
+      // TODO Animated resources
    };
 
    ResourcesManager() = default;

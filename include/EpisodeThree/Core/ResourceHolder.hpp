@@ -13,7 +13,6 @@ class ResourceHolder
 protected:
 
    ResourceHolder() = default;
-   virtual ~ResourceHolder() = default;
 
    ResourceType& add(std::string const& identifier)
    {

@@ -27,7 +27,7 @@ void Transition::reset(FadeWay way, sf::Time duration)
    m_duration = duration;
 }
 
-void Transition::setShader(const std::string& shaderPath)
+void Transition::setShader(std::string const& shaderPath)
 {
    if (!m_fade.loadFromFile(shaderPath, sf::Shader::Fragment))
    {

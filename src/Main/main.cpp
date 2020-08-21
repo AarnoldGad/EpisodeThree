@@ -1,7 +1,7 @@
 #include <iostream>
 #include <EpisodeThree/Outatime.hpp>
-#include <EpisodeThree/State/FirstSceneState.hpp>
 #include <EpisodeThree/Core/ResourcesManager.hpp>
+#include <EpisodeThree/State/FirstSceneState.hpp>
 
 // TODO Better resources init management
 void initResources();
@@ -11,14 +11,11 @@ int main()
    initResources();
    Outatime::Instance().run<FirstSceneState>();
 
-   // 20 Aout
-   // Tiles
-   // Tile Maps / Implementation
-   // Système dialogue
-
    // 21 Aout
    // Sprites
    // Animation
+   // Tile Maps / Implementation
+   // Tiles
    //
 
    return 0;

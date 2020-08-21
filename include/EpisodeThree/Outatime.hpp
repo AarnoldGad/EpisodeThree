@@ -15,14 +15,17 @@ class Outatime : public Singleton<Outatime>
 
 public:
 
-   template<typename S, typename... Args>
+   template<typename StateType, typename... Args>
    void run(Args&&... args);
    void stop();
 
-   template<typename S, typename... Args>
+   template<typename StateType, typename... Args>
    void pushState(Args&&... args);
    void popState();
 
+   template<typename StateType, typename... Args>
+   void setState(Args&&... args); // Convenience, pushing new state and popping previous
+   
    inline sf::RenderWindow& getWindow() { return m_window; }
 
 private:
