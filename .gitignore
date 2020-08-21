@@ -1,0 +1,10 @@
+# Files
+
+# Folders
+/bin/
+
+# Common
+*.o
+*.d
+*.kdev*
+/.kdev*/
