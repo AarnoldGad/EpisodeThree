@@ -14,7 +14,8 @@ OUTFILE=$(abspath $(OUTDIR))/$(EXEC)
 
 INCLUDEDIRS=-I/usr/include -I/usr/local/include -I$(PROJECTPATH)/include
 LIBDIRS=-L/usr/lib -L/usr/local/lib
-LIBS=/usr/lib/libsfml-system.so /usr/lib/libsfml-window.so /usr/lib/libsfml-graphics.so /usr/lib/libsfml-audio.so
+LIBS=/usr/lib/libsfml-system.so /usr/lib/libsfml-window.so /usr/lib/libsfml-graphics.so /usr/lib/libsfml-audio.so \
+/usr/local/lib/libtmxparser.so
 
 CC=gcc
 CXX=g++

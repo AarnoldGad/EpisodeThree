@@ -4,6 +4,7 @@
 #include <memory>
 #include <functional>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <EpisodeThree/Core/Singleton.hpp>
 #include <EpisodeThree/Outatime.hpp>
 #include <EpisodeThree/Core/ResourceHolder.hpp>
@@ -12,7 +13,8 @@
 class ResourcesManager : public Singleton<ResourcesManager>,
                          public ResourceHolder<sf::Shader>,
                          public ResourceHolder<sf::Texture>,
-                         public ResourceHolder<sf::Font>
+                         public ResourceHolder<sf::Font>,
+                         public ResourceHolder<sf::SoundBuffer>
 {
    friend class Singleton<ResourcesManager>;
    friend class Outatime;

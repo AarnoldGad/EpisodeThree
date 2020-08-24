@@ -10,6 +10,7 @@ std::map<std::string, std::vector<std::string> > const DialogStore::s_dialogs
       {
          "test test test1",
          "test test test2",
+         "test test test3",
       }
    }
 };

@@ -1,4 +1,5 @@
 #include <EpisodeThree/State/FirstSceneState.hpp>
+#include <EpisodeThree/Core/ResourcesManager.hpp>
 
 FirstSceneState::FirstSceneState(Outatime& game)
    : ElectrocardiogramState(game, 30), m_box("scene_1", 40, 10.f)

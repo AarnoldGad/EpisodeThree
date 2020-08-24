@@ -8,7 +8,7 @@ class DialogBox : public sf::Drawable, public sf::Transformable
 {
 public:
 
-   explicit DialogBox(std::string const& dialogID = std::string(), size_t charSize = 24, float charsPerSecond = 0.f, sf::Time skipCooldown = sf::Time::Zero);
+   explicit DialogBox(std::string const& dialogID = std::string(), unsigned int charSize = 24, float charsPerSecond = 0.f, sf::Time skipCooldown = sf::Time::Zero);
 
    void update(sf::Time dt);
    bool skip();
@@ -17,7 +17,7 @@ public:
 
    void setBackground(sf::Texture const& background);
    void setMargin(sf::Vector2f offset);
-   void setCharSize(size_t size);
+   void setCharSize(unsigned int size);
 
    void setDialogIdentifier(std::string const& identifier);
    inline std::string const& getDialogIdentifier() const { return m_dialogID; }

@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-DialogBox::DialogBox(std::string const& dialogID, size_t charSize, float charsPerSecond, sf::Time skipCooldown)
+DialogBox::DialogBox(std::string const& dialogID, unsigned int charSize, float charsPerSecond, sf::Time skipCooldown)
    : m_charsPerSecond(charsPerSecond), m_onChars{}, m_skipCooldown(skipCooldown), m_dialogID(dialogID), m_currentLine{}
 {
    m_text.setFont(ResourcesManager::Instance().get<sf::Font>("font"));
@@ -17,6 +17,7 @@ void DialogBox::update(sf::Time dt)
    m_accumTime += dt;
    m_charAccum += dt;
 
+   // TODO change m_charsPerSecond to integer
    if (lineFinished() || m_charsPerSecond == 0.f)
       m_text.setString(DialogStore::getLine(m_dialogID, m_currentLine));
    else if (m_charAccum.asSeconds() >= (1.f / m_charsPerSecond))
@@ -36,14 +37,11 @@ void DialogBox::update(sf::Time dt)
 
 bool DialogBox::skip()
 {
-   if (dialogFinished())
-      return false;
-
    // Instant draw all chars
    if (!lineFinished() && m_charsPerSecond >= 0.f)
       m_onChars = DialogStore::getLine(m_dialogID, m_currentLine).size() - 1;
    // Skip line
-   else if (m_accumTime >= m_skipCooldown)
+   else if (!dialogFinished() && m_accumTime >= m_skipCooldown)
    {
       m_currentLine++;
       m_onChars = 0;
@@ -74,7 +72,7 @@ void DialogBox::setMargin(sf::Vector2f offset)
    m_text.setPosition(offset);
 }
 
-void DialogBox::setCharSize(size_t size)
+void DialogBox::setCharSize(unsigned int size)
 {
    m_text.setCharacterSize(size);
 }

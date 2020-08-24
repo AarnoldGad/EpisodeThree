@@ -8,10 +8,10 @@ Outatime::Outatime()
    // Move window to the center of the screen
    #if defined(_DEBUG)
       // I have 2 monitors on a X server and SFML doesn't handle multiple monitors
-      m_window.setPosition({2560 - (WINDOW_WIDTH / 2), 540 - (WINDOW_HEIGHT / 2)})
+      m_window.setPosition({2560 - (WINDOW_WIDTH / 2), 540 - (WINDOW_HEIGHT / 2)});
    #else
       sf::Vector2i desktopSize = {static_cast<int>(sf::VideoMode::getDesktopMode().width), static_cast<int>(sf::VideoMode::getDesktopMode().height)};
-      m_window.setPosition({desktopSize.x - WINDOW_WIDTH) / 2, (desktopSize.y - WINDOW_HEIGHT) / 2});
+      m_window.setPosition({(desktopSize.x - WINDOW_WIDTH) / 2, (desktopSize.y - WINDOW_HEIGHT) / 2});
    #endif
 
    m_window.setFramerateLimit(60);
@@ -46,16 +46,16 @@ void Outatime::mainGameLoop()
       state->update(deltaTime);
 
       m_window.clear();
-      
+
       state->render(m_renderMaster);
       m_renderMaster.render();
-      
+
       m_window.display();
    }
 }
 
 void Outatime::popState()
-
+{
    if (++m_shouldPop >= m_states.size())
       m_shouldPop = m_states.size() ? m_states.size() - 1 : 0;
 }
@@ -63,7 +63,7 @@ void Outatime::popState()
 void Outatime::updateStateStatus()
 {
    for (; m_shouldPop > 0; --m_shouldPop)
-      m_states.pop();
+      m_states.pop_front();
 }
 
 void Outatime::stop()

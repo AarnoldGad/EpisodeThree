@@ -4,15 +4,20 @@
 ElectrocardiogramState::ElectrocardiogramState(Outatime& game, float hbpm)
    : State(game), m_hbpm(hbpm)
 {
-   sf::Texture& ecFlat = ResourcesManager::Instance().loadFromFile<sf::Texture>("ecFlat", "assets/sprites/ec_flat.png", sf::IntRect());
-   sf::Texture& ecStress = ResourcesManager::Instance().loadFromFile<sf::Texture>("ecStress", "assets/sprites/ec_stress.png", sf::IntRect());
-
-   m_ecFlat.setTexture(ecFlat);
+   m_ecFlat.setTexture(ResourcesManager::Instance().get<sf::Texture>("ekgFlat"));
    m_ecFlat.setPosition({0, 0});
 
-   m_ecStress.setTexture(ecStress);
+   m_ecStress.setTexture(ResourcesManager::Instance().get<sf::Texture>("ekgStress"));
    m_ecStress.setPosition({0, 0});
+
+   m_ekg.setBuffer(ResourcesManager::Instance().get<sf::SoundBuffer>("ekg"));
 }
+
+ElectrocardiogramState::~ElectrocardiogramState()
+{
+   m_ekg.stop();
+}
+
 
 void ElectrocardiogramState::update(sf::Time dt)
 {
@@ -21,6 +26,7 @@ void ElectrocardiogramState::update(sf::Time dt)
    if (m_accumTime.asSeconds() >= (60.f / m_hbpm))
    {
       m_accumTime = sf::Time::Zero;
+      m_ekg.play();
    }
 
    sf::Color color = m_ecStress.getColor();
